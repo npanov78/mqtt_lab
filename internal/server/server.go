@@ -20,7 +20,7 @@ var connectLostHandler mqtt.ConnectionLostHandler = func(client mqtt.Client, err
 	log.Printf("Disconnected from %s", broker)
 }
 
-var broker = InitConfig()
+var broker, username, password = InitConfig()
 
 // generateSensorData функция генерирует данные для сенсора
 func generateSensorData() string {
@@ -32,10 +32,20 @@ func generateSensorData() string {
 // initBrokerOptions функция генерирует параметры подключения к брокеру
 func initBrokerOptions() *mqtt.ClientOptions {
 	opts := mqtt.NewClientOptions().AddBroker(broker)
+
+	//tlsConfig, err := InitTLSConfig()
+	//if err != nil {
+	//	log.Fatal(err)
+	//}
+	//opts.SetTLSConfig(tlsConfig)
+
 	opts.SetClientID("MQTT_Server")
 	opts.SetDefaultPublishHandler(messagePubHandler)
 	opts.OnConnect = connectHandler
 	opts.OnConnectionLost = connectLostHandler
+
+	//opts.SetUsername(username)
+	//opts.SetPassword(password)
 
 	return opts
 }

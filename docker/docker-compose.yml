@@ -6,9 +6,9 @@ services:
     container_name: mosquitto
     ports:
       - "1883:1883"
+      - "8883:8883"
     volumes:
-      - mosquitto_data:/mosquitto/data
       - ./mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
-
-volumes:
-  mosquitto_data:
+      - ../certs/ca.crt:/mosquitto/config/ca.crt:ro
+      - ../certs/shared.crt:/mosquitto/config/shared.crt:ro
+      - ../certs/shared.key:/mosquitto/config/shared.key:ro

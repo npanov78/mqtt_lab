@@ -6,12 +6,23 @@ import (
 	server "mqtt_lab.com/internal/server"
 )
 
-var broker = server.InitConfig()
+var broker, username, password = server.InitConfig()
 
 // initClientOptions функция инициализации параметров клиента
 func initClientOptions() *mqtt.ClientOptions {
 	opts := mqtt.NewClientOptions().AddBroker(broker)
+
+	//tlsConfig, err := server.InitTLSConfig()
+	//if err != nil {
+	//	log.Fatal(err)
+	//}
+	//opts.SetTLSConfig(tlsConfig)
+
 	opts.SetClientID("MQTT_Client")
+
+	//opts.SetUsername(username)
+	//opts.SetPassword(password)
+
 	opts.OnConnect = onConnect
 
 	return opts
