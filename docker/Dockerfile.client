@@ -1,0 +1,18 @@
+FROM golang:1.23.2 AS builder
+
+WORKDIR /build
+
+COPY . .
+RUN go mod tidy
+RUN go build -o /build/client ./cmd/client
+
+FROM alpine:3.20.3 AS runner
+
+RUN apk add --no-cache libc6-compat
+
+WORKDIR /app
+
+COPY --from=builder /build/client /app/client
+COPY certs /app/certs
+
+ENTRYPOINT ["/app/client"]
