@@ -59,7 +59,9 @@ func StartServer() {
 	client := mqtt.NewClient(opts)
 
 	if token := client.Connect(); token.Wait() && token.Error() != nil {
-		log.Fatalf("Broker %s connection error: %s", broker, token.Error())
+		log.Printf("Broker %s connection error: %s", broker, token.Error())
+		log.Printf("Sleep for 5 seconds...")
+		time.Sleep(5 * time.Second)
 		return
 	}
 

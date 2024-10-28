@@ -12,3 +12,25 @@ services:
       - ../certs/ca.crt:/mosquitto/config/ca.crt:ro
       - ../certs/shared.crt:/mosquitto/config/shared.crt:ro
       - ../certs/shared.key:/mosquitto/config/shared.key:ro
+
+  server:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.server
+    restart: always
+    depends_on:
+      - mosquitto
+    container_name: server
+    env_file:
+      - ../.env
+
+  client:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.client
+    restart: always
+    depends_on:
+      - server
+    container_name: client
+    env_file:
+      - ../.env
