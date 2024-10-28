@@ -36,13 +36,13 @@
 - Для работы с дампами трафика использовать `Wireshark`
 
 
-    Работа с сертификатами:
-    openssl req -x509 -new -nodes -keyout certs/ca.key -sha256 -days 365 -out certs/ca.crt -config certs/openssl.conf
-    openssl genpkey -algorithm RSA -out certs/shared.key
-    openssl req -new -key certs/shared.key -out certs/shared.csr -config certs/openssl.conf
-    openssl x509 -req -in certs/shared.csr -CA certs/ca.crt -CAkey certs/ca.key -CAcreateserial -out certs/shared.crt -days 365 -sha256 -extfile certs/openssl.conf -extensions v3_req
-    sudo chmod -R 777 certs
-    openssl verify -CAfile certs/ca.crt certs/shared.crt
+Работа с сертификатами:
+- openssl req -x509 -new -nodes -keyout certs/ca.key -sha256 -days 365 -out certs/ca.crt -config certs/openssl.conf
+- openssl genpkey -algorithm RSA -out certs/shared.key
+- openssl req -new -key certs/shared.key -out certs/shared.csr -config certs/openssl.conf
+- openssl x509 -req -in certs/shared.csr -CA certs/ca.crt -CAkey certs/ca.key -CAcreateserial -out certs/shared.crt -days 365 -sha256 -extfile certs/openssl.conf -extensions v3_req
+- sudo chmod -R 777 certs
+- openssl verify -CAfile certs/ca.crt certs/shared.crt
 
 ## Переменные окружения
 - `BROKER_HOST` - хост брокера mosquitto
